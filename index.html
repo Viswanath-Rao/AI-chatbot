@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./images/gemini.svg" type="image/x-icon" />
-    <title>Gemini</title>
+    <link rel="shortcut icon" href="./images/logo.jpg" type="image/jpeg" />
+    <title>THOR · Neural Observatory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Outfit:wght@100..900&family=Syne:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -12,74 +18,196 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="header">
-      <!-- Name and Welcome Message -->
+    <canvas id="liquid-canvas" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="pointer-glow" aria-hidden="true"></div>
 
-      <h1 class="title">Hello, Rupan</h1>
-      <p class="subtitle">How Can I help you today?</p>
+    <div class="orb orb-a depth-far" aria-hidden="true"></div>
+    <div class="orb orb-b depth-mid" aria-hidden="true"></div>
+    <div class="orb orb-c depth-near" aria-hidden="true"></div>
+    <div class="orb orb-d depth-far" aria-hidden="true"></div>
 
-      <!-- default suggested prompt  -->
+    <div class="app">
+      <aside class="rail bbox depth-mid">
+        <span class="bbox-tick tl"></span>
+        <span class="bbox-tick tr"></span>
+        <span class="bbox-tick bl"></span>
+        <span class="bbox-tick br"></span>
 
-      <ul class="suggestion-list">
-        <li class="suggestion">
-          <h4 class="text">How can I become a FullStack Developer in 2024</h4>
-          <span class="icon material-symbols-rounded">trophy</span>
-        </li>
-        <li class="suggestion">
-          <h4 class="text">Create a roadmap to learn Reactjs in 2024</h4>
-          <span class="icon material-symbols-rounded">draw</span>
-        </li>
-        <li class="suggestion">
-          <h4 class="text">
-            Can you help me find the latest news on Web Development
-          </h4>
-          <span class="icon material-symbols-rounded">lightbulb</span>
-        </li>
-        <li class="suggestion">
-          <h4 class="text">
-            Write a Javascript code to print the even numbers in an array
-          </h4>
-          <span class="icon material-symbols-rounded">code</span>
-        </li>
-      </ul>
-    </header>
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="images/logo.jpg" alt="" />
+            <span class="pulse-ring"></span>
+          </div>
+          <div class="brand-copy">
+            <p class="eyebrow">Observatory 07</p>
+            <h2>THOR</h2>
+            <p class="brand-sub">Liquid neural canvas</p>
+          </div>
+        </div>
 
-    <!-- chat area after entering in prompt results will appear here -->
+        <div class="hud">
+          <article class="stat bbox-soft">
+            <span class="stat-label">Chronograph</span>
+            <span id="stat-clock" class="stat-value kinetic-digits">00:00:00</span>
+          </article>
+          <article class="stat bbox-soft">
+            <span class="stat-label">Session</span>
+            <span id="stat-session" class="stat-value">00:00</span>
+          </article>
+          <div class="stat-row">
+            <article class="stat bbox-soft">
+              <span class="stat-label">Exchanges</span>
+              <span id="stat-count" class="stat-value">00</span>
+            </article>
+            <article class="stat bbox-soft">
+              <span class="stat-label">Signal</span>
+              <span id="stat-signal" class="stat-value">Idle</span>
+            </article>
+          </div>
+        </div>
 
-    <div class="chat-list"></div>
+        <div class="viz-panel bbox-soft">
+          <div class="viz-head">
+            <span class="stat-label">Thought density</span>
+            <span id="stat-density" class="viz-meta">0.00</span>
+          </div>
+          <canvas id="sparkline" width="240" height="72" aria-hidden="true"></canvas>
+          <div class="ring-row">
+            <svg class="ring" viewBox="0 0 84 84" aria-hidden="true">
+              <circle class="ring-track" cx="42" cy="42" r="34" />
+              <circle class="ring-value" id="mesh-ring" cx="42" cy="42" r="34" />
+            </svg>
+            <div>
+              <p class="stat-label">Mesh coherence</p>
+              <p id="stat-cohere" class="stat-value compact">12%</p>
+              <p class="viz-caption">Live GLSL field responding to pointer + chat.</p>
+            </div>
+          </div>
+        </div>
 
-    <!-- prompt type area where we need to type the prompts -->
+        <div class="rail-foot">
+          <p class="live-dot"><span></span> Live volumetric mesh</p>
+          <p class="rail-note">WebGL · variable type · Gemini core</p>
+        </div>
+      </aside>
+
+      <main class="stage bbox depth-near">
+        <span class="bbox-tick tl"></span>
+        <span class="bbox-tick tr"></span>
+        <span class="bbox-tick bl"></span>
+        <span class="bbox-tick br"></span>
+
+        <header class="header">
+          <p class="kicker">
+            <span class="kicker-line"></span>
+            Contextual intelligence
+          </p>
+          <h1 class="title" data-kinetic="Hello, THOR.">Hello, THOR.</h1>
+          <p class="subtitle">
+            How can I help you
+            <em>today?</em>
+          </p>
+          <p class="lede">
+            A generative canvas for thought — ask, command, or wander. The mesh
+            listens, the type moves, the field remembers.
+          </p>
+
+          <ul class="suggestion-list">
+            <li class="suggestion bbox-soft" style="--i: 0">
+              <span class="box-index">01</span>
+              <h4 class="text">Turn off all lights in the living room.</h4>
+              <span class="icon material-symbols-rounded">bolt</span>
+            </li>
+            <li class="suggestion bbox-soft" style="--i: 1">
+              <span class="box-index">02</span>
+              <h4 class="text">Start Netflix on the living room TV.</h4>
+              <span class="icon material-symbols-rounded">play_arrow</span>
+            </li>
+            <li class="suggestion bbox-soft" style="--i: 2">
+              <span class="box-index">03</span>
+              <h4 class="text">Whats the air quality like inside?</h4>
+              <span class="icon material-symbols-rounded">air</span>
+            </li>
+            <li class="suggestion bbox-soft" style="--i: 3">
+              <span class="box-index">04</span>
+              <h4 class="text">Open the curtains in the morning at 7 AM.</h4>
+              <span class="icon material-symbols-rounded">schedule</span>
+            </li>
+          </ul>
+        </header>
+
+        <div class="chat-list"></div>
+      </main>
+    </div>
 
     <div class="typing-area">
       <form action="#" class="typing-form">
-        <div class="input-wrapper">
-          <input
-            type="text"
-            placeholder="Enter a prompt here"
-            class="typing-input"
-            required
-          />
-          <button
-            id="send-message-button"
-            class="icon material-symbols-rounded"
-          >
-            send
-          </button>
-        </div>
-        <div class="action-buttons">
-          <span id="theme-toogle-button" class="icon material-symbols-rounded"
-            >light_mode</span
-          >
-          <span id="delete-chat-button" class="icon material-symbols-rounded"
-            >delete</span
-          >
+        <div class="composer bbox">
+          <span class="bbox-tick tl"></span>
+          <span class="bbox-tick tr"></span>
+          <span class="bbox-tick bl"></span>
+          <span class="bbox-tick br"></span>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              placeholder="Compose a thought…"
+              class="typing-input"
+              required
+              autocomplete="off"
+            />
+            <button
+              id="send-message-button"
+              class="icon material-symbols-rounded"
+              type="submit"
+            >
+              send
+            </button>
+          </div>
+          <div class="action-buttons">
+            <span
+              id="theme-toogle-button"
+              class="icon material-symbols-rounded magnetic"
+              role="button"
+              tabindex="0"
+              title="Toggle atmosphere"
+              >light_mode</span
+            >
+            <span
+              id="delete-chat-button"
+              class="icon material-symbols-rounded magnetic"
+              role="button"
+              tabindex="0"
+              title="Clear the canvas"
+              >delete</span
+            >
+          </div>
         </div>
       </form>
       <p class="disclaimer">
-        Gemini may display inaccurate info, including about people, so
-        double-check its responses.
+        Responses can drift. Verify anything that matters.
       </p>
     </div>
+
+    <div class="modal-layer" id="wipe-modal" hidden>
+      <div class="modal-card bbox">
+        <span class="bbox-tick tl"></span>
+        <span class="bbox-tick tr"></span>
+        <span class="bbox-tick bl"></span>
+        <span class="bbox-tick br"></span>
+        <p class="modal-kicker">Irreversible</p>
+        <h3>Clear the entire canvas?</h3>
+        <p>Every exchange in this session will dissolve.</p>
+        <div class="modal-actions">
+          <button type="button" class="ghost" id="wipe-cancel">Keep</button>
+          <button type="button" class="danger" id="wipe-confirm">Wipe</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="visual.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
